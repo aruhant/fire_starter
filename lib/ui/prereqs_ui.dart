@@ -24,7 +24,7 @@ class PrereqsUI extends StatelessWidget {
   Future goTo(String path, {int delay = 500}) => Future.delayed(Duration(milliseconds: delay)).then((value) => Get.offAllNamed(path));
 
   Future checks() {
-    if (UpgradeCheckService.check != 0) return goTo('/${RouteNames.UPGRADE}');
+    if ((UpgradeCheckService.check == 1)) return goTo('/${RouteNames.UPGRADE}');
     if (ConfigStorage.locale == null) return goTo('/${RouteNames.LOCALE}', delay: 10);
     if (PackageInfoService.metadata == null) {
       GetLogger.to.w('Empty Metadata');
@@ -37,6 +37,6 @@ class PrereqsUI extends StatelessWidget {
       GetLogger.to.w('Empty memberOf ${AuthService.to.firestoreUser.value!}');
       return goTo('/', delay: 600);
     }
-    return goTo('/${RouteNames.HOME}');
+    return goTo('/${RouteNames.HOME}', delay: 10);
   }
 }

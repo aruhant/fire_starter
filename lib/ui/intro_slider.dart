@@ -13,6 +13,7 @@ class IntroSliderUI extends StatelessWidget {
   List<Slide> makeSlides(context) {
     if (PackageInfoService.metadata == null) {
       GetLogger.to.w('No Metadata');
+      Future.delayed(Duration(milliseconds: 1000)).then((value) => onDonePress());
       return [];
     }
     if (PackageInfoService.metadata!.introSlider == null || PackageInfoService.metadata!.introSlider!.length == 0) {

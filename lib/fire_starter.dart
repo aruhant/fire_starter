@@ -1,13 +1,12 @@
 library firestarter;
 
 import 'dart:async';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_starter/controllers/controllers.dart';
+import 'package:fire_starter/models/metadata_model.dart';
 import 'package:fire_starter/services/auth_service.dart';
 import 'package:fire_starter/services/database_service.dart';
 import 'package:fire_starter/services/notification.dart';
 import 'package:fire_starter/services/package_info.dart';
-import 'package:fire_starter/services/upgrade_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/foundation.dart';
@@ -57,7 +56,7 @@ class FireStarter {
     Get.put<AuthService>(AuthService());
     Get.put<DatabaseService>(DatabaseService());
     Get.put<NotificationService>(NotificationService());
-    UpgradeCheckService.init();
+    MetadataModel.init();
     ThemeController themeController = ThemeController.to;
     if (false && kDebugMode && themeIndex == -1)
       Timer.periodic(const Duration(seconds: 15), (Timer timer) {

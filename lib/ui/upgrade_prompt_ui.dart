@@ -21,26 +21,26 @@ class _UpgradePromptUIState extends State<UpgradePromptUI> {
   Widget build(BuildContext context) {
     final AppLocalizationsData? labels = context.localizations;
     switch (UpgradeCheckService.check) {
-      case -1:
-        Future.delayed(Duration(seconds: 1)).then((value) => mounted ? setState(() {}) : null);
-        return Material(
-          child: SizedBox.expand(
-              child: Container(
-                  color: Color.fromRGBO(33, 33, 33, 1),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(28.0),
-                        child: Image(height: 40, image: AssetImage('assets/sync.gif')),
-                      ),
-                      Text(
-                        labels?.upgrade.network.waiting ?? 'Waiting for a network connection...',
-                        style: TextStyle(color: Colors.white),
-                      )
-                    ],
-                  ))),
-        );
+      // case -1:
+      //   Future.delayed(Duration(milliseconds: 10)).then((value) => mounted ? setState(() {}) : null);
+      //   return Material(
+      //     child: SizedBox.expand(
+      //         child: Container(
+      //             color: Color.fromRGBO(33, 33, 33, 1),
+      //             child: Column(
+      //               mainAxisAlignment: MainAxisAlignment.center,
+      //               children: [
+      //                 Padding(
+      //                   padding: const EdgeInsets.all(28.0),
+      //                   child: Image(height: 40, image: AssetImage('assets/sync.gif')),
+      //                 ),
+      //                 Text(
+      //                   '${UpgradeCheckService.check} $t' + (labels?.upgrade.network.waiting ?? 'Waiting for a network connection...'),
+      //                   style: TextStyle(color: Colors.white),
+      //                 )
+      //               ],
+      //             ))),
+      //   );
       case 1:
         return MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -77,13 +77,6 @@ class _UpgradePromptUIState extends State<UpgradePromptUI> {
               ),
             )));
       case 2:
-        UpgradeCheckService.reset();
-        Future.delayed(Duration(seconds: 10)).then((value) {
-          showSnackBar(
-              labels?.upgrade.optional.title ?? 'Upgrade Available', labels?.upgrade.optional.body ?? 'It is recommended that you update to the latest build');
-        });
-        Future.delayed(Duration(milliseconds: 10)).then((_) => Get.offAllNamed('/'));
-        break;
       case 0:
         Future.delayed(Duration(milliseconds: 10)).then((_) => Get.offAllNamed('/'));
         break;

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_starter/constants/firebase_paths.dart';
 import 'package:fire_starter/helpers/helpers.dart';
 import 'package:fire_starter/services/package_info.dart';
+import 'package:fire_starter/services/upgrade_check.dart';
 import 'package:get/get.dart';
 
 class MetadataModel {
@@ -26,10 +27,13 @@ class MetadataModel {
 
   static init() {
     final FirebaseFirestore db = FirebaseFirestore.instance;
+    GetLogger.to.w('Waiting for ${FirebasePaths.prefix}${FirebasePaths.metadata}/all');
     db.doc('${FirebasePaths.prefix}${FirebasePaths.metadata}/all').snapshots().listen((event) {
       DocumentSnapshot<Map<String, dynamic>> doc = event;
+      GetLogger.to.w('Snapshot ${FirebasePaths.prefix}${FirebasePaths.metadata}/all');
       if (!doc.exists) GetLogger.to.w('Cannout find ${FirebasePaths.prefix}${FirebasePaths.metadata}/all');
       PackageInfoService.metadata = MetadataModel._fromDocumentSnapshot(doc);
+      UpgradeCheckService.init();
     });
   }
 

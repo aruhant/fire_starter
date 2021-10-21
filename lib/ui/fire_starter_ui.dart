@@ -60,9 +60,6 @@ class FireStarterUI extends StatelessWidget {
             case RouteNames.SIGN_IN:
               builder = (_) => SignInUI.builder();
               break;
-            // case 'home':
-            //   builder = (_) => SignedInHome.builder(settings);
-            //   break;
             case RouteNames.UPGRADE:
               builder = (_) => UpgradePromptUI();
               break;
